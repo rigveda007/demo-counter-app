@@ -31,5 +31,12 @@ pipeline {
            }
             
         }
+        stage ('Quality Gate Analusis') {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-jenkins-api'
+                }
+            }
+        }
     }
 }
