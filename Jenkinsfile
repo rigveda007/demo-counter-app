@@ -21,14 +21,15 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage ('SonarQube Analysis') {
+        stage ('Sonarqube Analysis') {
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: 'sonar-api') {
-                        sh 'mvn clean package sonar:sonar'
-                    }
+                      sh 'mvn clean package sonar:sonar'
+                  }
                 }
             }
         }
+      
     }
 }
