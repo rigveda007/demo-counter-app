@@ -37,7 +37,7 @@ pipeline {
                     def readPomVersion = readMavenPom file: 'pom.xml'
 
                     def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "counter-app-snap" : "counter-app"
-                    
+
                     nexusArtifactUploader artifacts: 
                     [
                         [
@@ -54,6 +54,15 @@ pipeline {
                     protocol: 'http', 
                     repository: nexusRepo, 
                     version: "${readPomVersion.version}"
+                }
+            }
+        }
+        stage ("Build docker image") {
+            steps {
+                script {
+                    sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID buban/$JOB_NAME:v1.$BUILD_ID'
+                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID buban/$JOB_NAME:latest'
                 }
             }
         }
