@@ -36,7 +36,7 @@ pipeline {
 
                     def readPomVersion = readMavenPom file: 'pom.xml'
 
-                    def nexusRepo = readMavenPom.version.endsWith("SNAPSHOT") ? "counter-app-snap" : "counter-app"
+                    def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "counter-app-snap" : "counter-app"
                     
                     nexusArtifactUploader artifacts: 
                     [
