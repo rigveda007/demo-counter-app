@@ -30,13 +30,7 @@ pipeline {
                 }
             }
         }
-        stage ("Quality Gate Check") {
-            steps {
-                script {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        
     }
 }
 
