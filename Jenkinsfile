@@ -30,10 +30,25 @@ pipeline {
                 }
             }
         }
-        stage ("Quality Gates Verification") {
+        stage ("upload artefacts to nexus repository") {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api'
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'springboot',
+                            classifier: '',
+                            file: 'target/Uber.jar',
+                            type: 'jar'
+                            ]
+                    ], 
+                    credentialsId: 'nexus-auth', 
+                    groupId: 'com.example', 
+                    nexusUrl: '3.111.38.239:8081/', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'counter-app', 
+                    version: '1.0.0'
                 }
             }
         }
