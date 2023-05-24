@@ -22,8 +22,8 @@ pipeline {
             }
         }
         stage ("Static Code Analysis") {
-            script {
-                steps {
+            steps {
+                script {
                     withSonarQubeEnv(credentialsId: 'sonar-api') {
                   }
                 }
